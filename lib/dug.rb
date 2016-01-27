@@ -1,5 +1,4 @@
 require "dug/version"
-
-module Dug
-  # Your code goes here...
-end
+require "dug/logger"
+require "dug/gmail_servicer"
+require "dug/github_notification_labeller"
