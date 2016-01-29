@@ -33,15 +33,15 @@ module Dug
       validate_label_type(type)
       case type
       when :organization
-        subscriptions.fetch(name, {})['labels']
+        subscriptions.fetch(name, {})['labels'] || []
       when :repository
         raise ArgumentError, "Repository label rules require an organization to be specified" unless organization
         subscriptions.fetch(organization, {})
                      .fetch('repositories', {})
-                     .fetch(name, {})['labels']
+                     .fetch(name, {})['labels'] || []
       when :reason
         validate_reason(name)
-        reasons.fetch(name, {})['labels']
+        reasons.fetch(name, {})['labels'] || []
       end
     end
 
@@ -55,7 +55,7 @@ module Dug
 
     def validate_reason(reason)
       unless GITHUB_REASONS.include?(reason)
-        raise ConfigurationError, "'#{reason}' is not a valid GitHub notification reason. Valid reasons include: #{Dug::VALID_GITHUB_REASONS.map { |x| "'#{x}'" }.join(', ')}"
+        raise ConfigurationError, "'#{reason}' is not a valid GitHub notification reason. Valid reasons include: #{GITHUB_REASONS.map { |x| "'#{x}'" }.join(', ')}"
       end
     end
 

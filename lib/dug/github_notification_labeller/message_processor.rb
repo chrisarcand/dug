@@ -52,17 +52,17 @@ module Dug
       end
 
       def reason_labels
-        Dug.configuration.labels_for(:reason, name: reason_name) || []
+        reason_name ? Dug.configuration.labels_for(:reason, name: reason_name) : []
       end
 
       def organization_labels
-        Dug.configuration.labels_for(:organization, name: organization_name) || []
+        Dug.configuration.labels_for(:organization, name: organization_name)
       end
 
       def repository_labels
         Dug.configuration.labels_for(:repository,
                                      name: repository_name,
-                                     organization: organization_name) || []
+                                     organization: organization_name)
       end
 
       def organization_name
