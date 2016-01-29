@@ -24,7 +24,7 @@ module Dug
         subscriptions[organization]['repositories'][name] = { 'labels' => labels }
       when :reason
         validate_reason(name)
-        reasons[name] = { labels: labels }
+        reasons[name] = { 'labels' => labels }
       end
       nil
     end
