@@ -6,10 +6,10 @@ require "dug/github_notification_labeller"
 
 module Dug
   def self.configure(&block)
-    yield _config
+    yield configuration
   end
 
-  def self._config
+  def self.configuration
     @config ||= Dug::Configurator.new
   end
 end
