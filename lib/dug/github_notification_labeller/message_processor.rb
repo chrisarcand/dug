@@ -26,7 +26,7 @@ module Dug
       end
 
       def labels_to_add
-        ["GitHub"] + project_labels + reason_labels
+        ["GitHub"] + organization_labels + repository_labels + reason_labels
       end
 
       def labels_to_remove
@@ -52,45 +52,28 @@ module Dug
       end
 
       def reason_labels
-        labels = []
-        if %w(author comment).include?(reason)
-          labels << "Participating"
-        end
-        if reason == "mention"
-          labels << "Mentioned by name"
-        end
-        if reason == "team_mention"
-          labels << "Team mention"
-        end
-        if reason == "assign"
-          labels << "Assigned"
-        end
-        labels
+        Dug.configuration.labels_for(:reason, name: reason_name) || []
       end
 
-      def project_labels
-        labels = []
-        if organization == "ManageIQ"
-          labels << "ManageIQ"
-        end
-        if organization == "rails"
-          labels << "Rails"
-        end
-        if organization == "rspec"
-          labels << "RSpec"
-        end
-        labels
+      def organization_labels
+        Dug.configuration.labels_for(:organization, name: organization_name) || []
       end
 
-      def organization
-        headers["List-ID"].match(/^\w+(?=\/)/)[0]
+      def repository_labels
+        Dug.configuration.labels_for(:repository,
+                                     name: repository_name,
+                                     organization: organization_name) || []
       end
 
-      def repo
-        # TODO
+      def organization_name
+        headers["List-ID"].match(/^([\w\-_]+)\//)[0]
       end
 
-      def reason
+      def repository_name
+        headers["List-ID"].match(/^\w+\/([\w\-_]+)/)[0]
+      end
+
+      def reason_name
         headers["X-GitHub-Reason"]
       end
 
