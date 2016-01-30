@@ -1,8 +1,8 @@
 module Dug
   class NotificationDecorator < SimpleDelegator
-    def headers
-      @headers ||= payload.headers.each_with_object({}) do |header, hash|
-        hash[header.name] = header.value
+    %w(Date From To Subject).each do |header|
+      define_method(header.downcase) do
+        headers[header]
       end
     end
 
@@ -16,6 +16,12 @@ module Dug
 
     def reason
       headers["X-GitHub-Reason"]
+    end
+
+    def headers
+      @headers ||= payload.headers.each_with_object({}) do |header, hash|
+        hash[header.name] = header.value
+      end
     end
 
     private
