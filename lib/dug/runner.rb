@@ -39,6 +39,7 @@ module Dug
       labels_to_add << Dug.configuration.labels_for(:repository,
                                                     name: message.repository,
                                                     organization: message.organization)
+      labels_to_add.flatten! and labels_to_remove.flatten!
 
       info = "Processing message:"
       info << "\n    ID: #{message.id}"
@@ -48,8 +49,8 @@ module Dug
       info << "\n    * Applying labels: #{labels_to_add.join(' | ')} *"
       log(info)
 
-      servicer.add_labels_by_name(message, labels_to_add.flatten)
-      servicer.remove_labels_by_name(message, labels_to_remove.flatten)
+      servicer.add_labels_by_name(message, labels_to_add)
+      servicer.remove_labels_by_name(message, labels_to_remove)
     end
 
     def unprocessed_notifications(use_cache: true)

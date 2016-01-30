@@ -74,10 +74,18 @@ module Dug
     private
 
     def modify_message_request(message, label_names)
-      ids = label_names.map { |name| labels[name].id }
+      ids = []
+      label_names.each do |name|
+        unless labels[name] && id = labels[name].id
+          raise MissingLabel, "The label '#{name}' does not exist. Please add the label in Gmail first."
+        end
+        ids << id
+      end
       request = Google::Apis::GmailV1::ModifyMessageRequest.new
       yield request, ids
       modify_message('me', message.id, request)
     end
   end
+
+  MissingLabel = Class.new(StandardError)
 end
