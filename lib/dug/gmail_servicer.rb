@@ -29,6 +29,19 @@ module Dug
       end
     end
 
+    def add_labels_by_name(*args)
+      modify_message_request(*args) do |request, ids|
+        request.add_label_ids = ids
+      end
+    end
+
+    def remove_labels_by_name(*args)
+      modify_message_request(*args) do |request, ids|
+        request.remove_label_ids = ids
+      end
+    end
+
+    # TODO: break some of this code down, prolly into a separate Authorizer class or something
     def authorize!
       token_store_path = ENV['GOOGLE_TOKEN_STORE_PATH'] || File.join(Dir.home, '.dug', "token_store.yaml")
       FileUtils.mkdir_p(File.dirname(token_store_path))
@@ -56,6 +69,15 @@ module Dug
           user_id: user_id, code: code, base_url: OOB_URI)
       end
       @gmail.authorization = credentials
+    end
+
+    private
+
+    def modify_message_request(message, label_names)
+      ids = label_names.map { |name| labels[name].id }
+      request = Google::Apis::GmailV1::ModifyMessageRequest.new
+      yield request, ids
+      modify_message('me', message.id, request)
     end
   end
 end

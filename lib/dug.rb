@@ -1,10 +1,19 @@
 require "dug/version"
 require "dug/configurator"
-require "dug/logger"
 require "dug/gmail_servicer"
-require "dug/github_notification_labeller"
+require "dug/logger"
+require "dug/notification_decorator"
+require "dug/runner"
 
 module Dug
+  def self.execute!
+    Dug::Runner.execute
+  end
+
+  def self.authorize!
+    Dug::GmailServicer.new.authorize!
+  end
+
   def self.configure(&block)
     yield configuration
   end
