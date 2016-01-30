@@ -30,14 +30,6 @@ module Dug
     def process_message(id)
       message = NotificationDecorator.new(servicer.get_user_message('me', id))
 
-      info = "Processing message:"
-      info << "\n    ID: #{message.id}"
-      %w(Date From Subject).each do |header|
-        info << "\n    #{header}: #{message.headers[header]}"
-      end
-      info << "\n    * Applying labels: #{labels_to_add.join(' | ')} *"
-      log(info)
-
       labels_to_add    = ["GitHub"]
       labels_to_remove = ["GitHub/Unprocessed"]
       if message.reason
@@ -47,6 +39,14 @@ module Dug
       labels_to_add << Dug.configuration.labels_for(:repository,
                                                     name: message.repository,
                                                     organization: message.organization)
+
+      info = "Processing message:"
+      info << "\n    ID: #{message.id}"
+      %w(Date From Subject).each do |header|
+        info << "\n    #{header}: #{message.headers[header]}"
+      end
+      info << "\n    * Applying labels: #{labels_to_add.join(' | ')} *"
+      log(info)
 
       servicer.add_labels_by_name(message, labels_to_add.flatten)
       servicer.remove_labels_by_name(message, labels_to_remove.flatten)
