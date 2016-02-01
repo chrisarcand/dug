@@ -39,7 +39,8 @@ module Dug
       labels_to_add << Dug.configuration.label_for(:repository,
                                                    name: message.repository,
                                                    organization: message.organization)
-      labels_to_add.flatten!.compact! and labels_to_remove.flatten!.compact!
+      labels_to_add.flatten! and labels_to_remove.flatten!
+      labels_to_add.compact! and labels_to_remove.compact!
 
       info = "Processing message:"
       info << "\n    ID: #{message.id}"

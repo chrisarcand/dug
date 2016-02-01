@@ -11,18 +11,18 @@ module Dug
     attr_accessor :application_credentials_file
 
     def initialize
-      self.label_rules = { "subscriptions" => {}, "reasons" => {} }
+      self.label_rules = { "organizations" => {}, "reasons" => {} }
     end
 
     def set_organization_rule(name, label: nil)
-      subscriptions[name] ||= { "repositories" => {} }
-      subscriptions[name]["label"] = label || name
+      organizations[name] ||= { "repositories" => {} }
+      organizations[name]["label"] = label || name
     end
 
     def set_repository_rule(name, organization:, label: nil)
-      subscriptions[organization] ||= { "repositories" => {} }
-      subscriptions[organization]["repositories"][name] ||= {}
-      subscriptions[organization]["repositories"][name]["label"] = label || name
+      organizations[organization] ||= { "repositories" => {} }
+      organizations[organization]["repositories"][name] ||= {}
+      organizations[organization]["repositories"][name]["label"] = label || name
     end
 
     def set_reason_rule(name, label: nil)
@@ -35,10 +35,10 @@ module Dug
       validate_label_type(type)
       case type
       when :organization
-        subscriptions.fetch(name, {})["label"]
+        organizations.fetch(name, {})["label"]
       when :repository
         raise ArgumentError, "Repository label rules require an organization to be specified" unless organization
-        subscriptions.fetch(organization, {})
+        organizations.fetch(organization, {})
                      .fetch("repositories", {})
                      .fetch(name, {})["label"]
       when :reason
@@ -80,25 +80,15 @@ module Dug
     def load_rules
       file = YAML.load_file(rule_file)
 
-      file["subscriptions"].each do |org|
+      file["organizations"].each do |org|
         case org
         when String
           set_organization_rule(org)
         when Hash
-          org_name = org.keys.first
-          org_options = org[org_name]
-
-          set_organization_rule(org_name, label: org_options["label"])
-          if org_options["repositories"]
-            org_options["repositories"].each do |repo|
-              case repo
-              when String
-                set_repository_rule(repo, organization: org_name)
-              when Hash
-                repo_name = repo.keys.first
-                repo_options = repo[repo_name]
-                set_repository_rule(repo_name, organization: org_name, label: repo_options["label"])
-              end
+          set_organization_rule(org["name"], label: org["label"])
+          if repos = org["repositories"]
+            repos.each do |repo|
+              set_repository_rule(repo["name"], organization: org["name"], label: repo["label"])
             end
           end
         end
@@ -122,8 +112,8 @@ module Dug
       end
     end
 
-    def subscriptions
-      label_rules["subscriptions"]
+    def organizations
+      label_rules["organizations"]
     end
 
     def reasons
