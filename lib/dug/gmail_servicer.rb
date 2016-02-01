@@ -47,10 +47,11 @@ module Dug
       FileUtils.mkdir_p(File.dirname(token_store_path))
 
       client_id = begin
-                    if ENV['GOOGLE_CLIENT_ID']
-                      Google::Auth::ClientId.new(ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'])
+                    if Dug.configuration.client_id
+                      Google::Auth::ClientId.new(Dug.configuration.client_id,
+                                                 Dug.configuration.client_secret)
                     else
-                      Google::Auth::ClientId.from_file(ENV['GOOGLE_APPLICATION_CREDENTIALS'])
+                      Google::Auth::ClientId.from_file(Dug.configuration.application_credentials_file)
                     end
                   end
       token_store = Google::Auth::Stores::FileTokenStore.new(file: token_store_path)

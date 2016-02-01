@@ -33,13 +33,13 @@ module Dug
       labels_to_add    = ["GitHub"]
       labels_to_remove = ["GitHub/Unprocessed"]
       if message.reason
-        labels_to_add << Dug.configuration.labels_for(:reason, name: message.reason)
+        labels_to_add << Dug.configuration.label_for(:reason, name: message.reason)
       end
-      labels_to_add << Dug.configuration.labels_for(:organization, name: message.organization)
-      labels_to_add << Dug.configuration.labels_for(:repository,
-                                                    name: message.repository,
-                                                    organization: message.organization)
-      labels_to_add.flatten! and labels_to_remove.flatten!
+      labels_to_add << Dug.configuration.label_for(:organization, name: message.organization)
+      labels_to_add << Dug.configuration.label_for(:repository,
+                                                   name: message.repository,
+                                                   organization: message.organization)
+      labels_to_add.flatten!.compact! and labels_to_remove.flatten!.compact!
 
       info = "Processing message:"
       info << "\n    ID: #{message.id}"
