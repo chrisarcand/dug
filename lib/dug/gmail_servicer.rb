@@ -10,7 +10,6 @@ module Dug
 
     OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
     APPLICATION_NAME = 'GitHub Notification Processor'
-    TOKEN_STORE_PATH = File.join(Dir.home, '.dug', "authorization.yaml")
     SCOPE = Google::Apis::GmailV1::AUTH_GMAIL_MODIFY
 
     def_delegators :@gmail, :get_user_message,
@@ -43,7 +42,7 @@ module Dug
 
     # TODO: break some of this code down, prolly into a separate Authorizer class or something
     def authorize!
-      token_store_path = ENV['GOOGLE_TOKEN_STORE_PATH'] || File.join(Dir.home, '.dug', "token_store.yaml")
+      token_store_path = Dug.configuration.token_store
       FileUtils.mkdir_p(File.dirname(token_store_path))
 
       client_id = begin

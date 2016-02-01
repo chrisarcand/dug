@@ -7,6 +7,7 @@ module Dug
 
     attr_accessor :client_id
     attr_accessor :client_secret
+    attr_accessor :token_store
     attr_accessor :application_credentials_file
     attr_accessor :rule_file
 
@@ -48,7 +49,7 @@ module Dug
       end
     end
 
-    def client_id
+    def application_credentials_file
       ENV['GOOGLE_APPLICATION_CREDENTIALS'] || @application_credentials_file
     end
 
@@ -56,8 +57,12 @@ module Dug
       ENV['GOOGLE_CLIENT_ID'] || @client_id
     end
 
-    def client_id
+    def client_secret
       ENV['GOOGLE_CLIENT_SECRET'] || @client_secret
+    end
+
+    def token_store
+      ENV['TOKEN_STORE_PATH'] || @token_store || File.join(Dir.home, ".dug", "authorization.yaml")
     end
 
     private
