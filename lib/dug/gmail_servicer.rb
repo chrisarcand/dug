@@ -9,7 +9,7 @@ module Dug
     extend Forwardable
 
     OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
-    APPLICATION_NAME = 'GitHub Notification Processor'
+    APPLICATION_NAME = 'Dug'
     SCOPE = Google::Apis::GmailV1::AUTH_GMAIL_MODIFY
 
     def_delegators :@gmail, :get_user_message,

@@ -6,10 +6,6 @@ require "dug/notification_decorator"
 require "dug/runner"
 
 module Dug
-  def self.execute!
-    Dug::Runner.execute
-  end
-
   def self.authorize!
     Dug::GmailServicer.new.authorize!
   end
