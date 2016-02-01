@@ -9,11 +9,9 @@ module Dug
     attr_accessor :client_secret
     attr_accessor :token_store
     attr_accessor :application_credentials_file
-    attr_accessor :rule_file
 
     def initialize
       self.label_rules = { "subscriptions" => {}, "reasons" => {} }
-      load_rule_file if ENV['RULES_PATH'] || rule_file
     end
 
     def set_organization_rule(name, label: nil)
@@ -65,14 +63,51 @@ module Dug
       ENV['TOKEN_STORE_PATH'] || @token_store || File.join(Dir.home, ".dug", "authorization.yaml")
     end
 
+    def rule_file
+      @rule_file
+    end
+
+    def rule_file=(file_path)
+      @rule_file = file_path
+      load_rules
+      @rule_file
+    end
+
     private
 
     attr_accessor :label_rules
 
-    def load_config
-      config = YAML.load_file(config_path)
-      require 'pry'
-      binding.pry
+    def load_rules
+      file = YAML.load_file(rule_file)
+
+      file["subscriptions"].each do |org|
+        case org
+        when String
+          set_organization_rule(org)
+        when Hash
+          org_name = org.keys.first
+          org_options = org[org_name]
+
+          set_organization_rule(org_name, label: org_options["label"])
+          if org_options["repositories"]
+            org_options["repositories"].each do |repo|
+              case repo
+              when String
+                set_repository_rule(repo, organization: org_name)
+              when Hash
+                repo_name = repo.keys.first
+                repo_options = repo[repo_name]
+                set_repository_rule(repo_name, organization: org_name, label: repo_options["label"])
+              end
+            end
+          end
+        end
+      end
+
+      file["reasons"].keys.each do |reason|
+        validate_reason(reason)
+        set_reason_rule(reason, label: file["reasons"][reason]["label"])
+      end
     end
 
     def validate_label_type(type)
