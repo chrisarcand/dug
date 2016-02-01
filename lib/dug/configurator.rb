@@ -31,7 +31,7 @@ module Dug
       reasons[name]["label"] = label || name
     end
 
-    def label_for(type, name:, organization: nil)
+    def label_for(type, name, organization: nil)
       validate_label_type(type)
       case type
       when :organization

@@ -33,11 +33,11 @@ module Dug
       labels_to_add    = ["GitHub"]
       labels_to_remove = ["GitHub/Unprocessed"]
       if message.reason
-        labels_to_add << Dug.configuration.label_for(:reason, name: message.reason)
+        labels_to_add << Dug.configuration.label_for(:reason, message.reason)
       end
-      labels_to_add << Dug.configuration.label_for(:organization, name: message.organization)
+      labels_to_add << Dug.configuration.label_for(:organization, message.organization)
       labels_to_add << Dug.configuration.label_for(:repository,
-                                                   name: message.repository,
+                                                   message.repository,
                                                    organization: message.organization)
       labels_to_add.flatten! and labels_to_remove.flatten!
       labels_to_add.compact! and labels_to_remove.compact!
