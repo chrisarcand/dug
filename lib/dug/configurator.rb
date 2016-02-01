@@ -1,51 +1,59 @@
+require 'yaml'
+
 module Dug
   class Configurator
     LABEL_RULE_TYPES = %i(organization repository reason)
     GITHUB_REASONS = %w(author comment mention team_mention state_change assign)
 
-    attr_reader :label_rules
+    attr_accessor :config_path
 
     def initialize
-      @label_rules = { 'subscriptions' => {}, 'reasons' => {} }
+      self.label_rules = { "subscriptions" => {}, "reasons" => {} }
+      load_config if ENV['CONFIG_PATH'] || config_path
     end
 
-    def set_label_rule(type, name:, organization: nil, labels:)
-      labels = Array(labels)
-      validate_label_type(type)
-
-      case type
-      when :organization
-        subscriptions[name] ||= {}
-        subscriptions[name]['labels'] = labels
-      when :repository
-        raise ArgumentError, "Repository label rules require an organization to be specified" unless organization
-        subscriptions[organization] ||= {}
-        subscriptions[organization]['repositories'] ||= {}
-        subscriptions[organization]['repositories'][name] = { 'labels' => labels }
-      when :reason
-        validate_reason(name)
-        reasons[name] = { 'labels' => labels }
-      end
-      nil
+    def set_organization_rule(name, label: nil)
+      subscriptions[name] ||= { "repositories" => {} }
+      subscriptions[name]["label"] = label || name
     end
 
-    def labels_for(type, name:, organization: nil)
+    def set_repository_rule(name, organization:, label: nil)
+      subscriptions[organization] ||= { "repositories" => {} }
+      subscriptions[organization]["repositories"][name] ||= {}
+      subscriptions[organization]["repositories"][name]["label"] = label || name
+    end
+
+    def set_reason_rule(name, label: nil)
+      validate_reason(name)
+      reasons[name] ||= {}
+      reasons[name]["label"] = label || name
+    end
+
+    def label_for(type, name:, organization: nil)
       validate_label_type(type)
       case type
       when :organization
-        subscriptions.fetch(name, {})['labels'] || []
+        subscriptions.fetch(name, {})["label"]
       when :repository
         raise ArgumentError, "Repository label rules require an organization to be specified" unless organization
         subscriptions.fetch(organization, {})
-                     .fetch('repositories', {})
-                     .fetch(name, {})['labels'] || []
+                     .fetch("repositories", {})
+                     .fetch(name, {})["label"]
       when :reason
         validate_reason(name)
-        reasons.fetch(name, {})['labels'] || []
+        reasons.fetch(name, {})["label"]
       end
     end
 
     private
+
+    attr_accessor :label_rules
+
+    def load_config
+      config = YAML.load_file(config_path)
+      require 'pry'
+      binding.pry
+    end
 
     def validate_label_type(type)
       unless LABEL_RULE_TYPES.include?(type)
@@ -60,11 +68,11 @@ module Dug
     end
 
     def subscriptions
-      label_rules['subscriptions']
+      label_rules["subscriptions"]
     end
 
     def reasons
-      label_rules['reasons']
+      label_rules["reasons"]
     end
   end
 
