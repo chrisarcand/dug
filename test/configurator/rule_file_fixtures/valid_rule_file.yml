@@ -1,0 +1,24 @@
+---
+organizations:
+  - rails
+  - name: rspec
+    label: RSpec
+    repositories:
+      - name: rspec-expectations
+        label: RSpec/rspec-expectations
+  - name: ManageIQ
+    repositories:
+      - name: more_core_extensions
+        label: MoreCoreExtensions
+
+reasons:
+  author:
+    label: Participating
+  comment:
+    label: Participating
+  mention:
+    label: Mentioned by name
+  team_mention:
+    label: Team mention
+  assign:
+    label: Assigned to me
