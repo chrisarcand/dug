@@ -5,11 +5,14 @@ module Dug
     LABEL_RULE_TYPES = %i(organization repository reason)
     GITHUB_REASONS = %w(author comment mention team_mention state_change assign)
 
-    attr_accessor :config_path
+    attr_accessor :client_id
+    attr_accessor :client_secret
+    attr_accessor :application_credentials_file
+    attr_accessor :rule_file
 
     def initialize
       self.label_rules = { "subscriptions" => {}, "reasons" => {} }
-      load_config if ENV['CONFIG_PATH'] || config_path
+      load_rule_file if ENV['RULES_PATH'] || rule_file
     end
 
     def set_organization_rule(name, label: nil)
@@ -43,6 +46,18 @@ module Dug
         validate_reason(name)
         reasons.fetch(name, {})["label"]
       end
+    end
+
+    def client_id
+      ENV['GOOGLE_APPLICATION_CREDENTIALS'] || @application_credentials_file
+    end
+
+    def client_id
+      ENV['GOOGLE_CLIENT_ID'] || @client_id
+    end
+
+    def client_id
+      ENV['GOOGLE_CLIENT_SECRET'] || @client_secret
     end
 
     private
