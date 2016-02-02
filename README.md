@@ -6,17 +6,20 @@
 
 Created out of frustration. _"[D]amn yo[u], [G]mail!"_
 
-**Dug is a simple, configurable gem to organize your GitHub notification emails in ways Gmail can't and in an
-easier-to-configure way.** It does all the things that people usually do with Gmail filters (label by organization name,
-repository name) as well as parse GitHub's custom X headers to label your messages with things like "Mentioned by name",
-"Assigned to me", "Commented", etc.
+**Dug is a simple, configurable gem to organize your GitHub notification emails in
+ways Gmail can't and in an easier-to-configure way.** It interacts with Google's
+Gmail API to do all the things that people usually do with Gmail filters (label by
+organization name, repository name) as well as parse GitHub's custom X headers to
+label your messages with things like "Mentioned by name", "Assigned to me",
+"Commented", etc.
 
 
 ## Quick Installation
 
-Dug is meant to be stupid simple. It's practically a gemified script with a configurable API. As such, you can
-programmatically configure and execute Dug's runner class in any way you see fit (within a web app hook, a Rake task,
-a script, whatever).
+Dug is meant to be stupid simple. It's practically a gemified script with a
+configurable API. As such, you can programmatically configure and execute Dug's
+runner class in any way you see fit (within a web app hook, a Rake task, a script,
+whatever).
 
 Basic installation steps:
 
@@ -129,9 +132,10 @@ There are multiple ways to use created OAuth credentials with Dug.
 
 #### Token store
 
-Dug uses Google's file-based token store for refresh tokens from the [Google Auth Library for
-Ruby](https://github.com/google/google-auth-library-ruby). The token store's location can be configured using the
-`TOKEN_STORE_PATH` environment variable or within the configuration block as follows:
+Dug uses Google's file-based token store for refresh tokens from the [Google Auth
+Library for Ruby](https://github.com/google/google-auth-library-ruby). The token
+store's location can be configured using the `TOKEN_STORE_PATH` environment
+variable or within the configuration block as follows:
 
 ```ruby
 Dug.configure do |config|
@@ -141,8 +145,9 @@ end
 
 ### More configuration options
 
-You can use public methods in Dug's configuration class to programmatically configure Dug without a Rules YAML file.
-As a documenting example, here is the same scenario in the YAML file used previously in this README but within a config
+You can use public methods in Dug's configuration class to programmatically
+configure Dug without a Rules YAML file.  As a documenting example, here is the
+same scenario in the YAML file used previously in this README but within a config
 block:
 
 ```ruby
@@ -162,7 +167,9 @@ end
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake test` to run the tests. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
 ## Contributing
 
