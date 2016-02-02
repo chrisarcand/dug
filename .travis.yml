@@ -1,8 +1,13 @@
 language: ruby
 rvm:
-  - 2.0
   - 2.1
   - 2.2
-  - 2.3
+  - 2.3.0
+  - jruby-head
+  - rbx
+matrix:
+  allow_failures:
+    - rvm: jruby-head
+    - rvm: rbx
 before_install: gem install bundler -v 1.11.2
 script: bundle exec rake test
