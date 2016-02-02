@@ -6,12 +6,12 @@
 
 Created out of frustration. _"[D]amn yo[u], [G]mail!"_
 
-**Dug is a simple, configurable gem to organize your GitHub notification emails in
-ways Gmail can't and in an easier-to-configure way.** It interacts with Google's
-Gmail API to do all the things that people usually do with Gmail filters (label by
-organization name, repository name) as well as parse GitHub's custom X headers to
-label your messages with things like "Mentioned by name", "Assigned to me",
-"Commented", etc.
+**Dug is a simple, configurable gem to organize your GitHub notification emails
+in ways Gmail can't and in an easier-to-maintain way than large, slow Google
+Apps Scripts.** It interacts with Google's Gmail API to do all the things that
+people usually do with Gmail filters (label by organization name, repository
+name) as well as parse GitHub's custom X headers to label your messages with
+things like "Mentioned by name", "Assigned to me", "Commented", etc.
 
 
 ## Quick Installation
@@ -63,8 +63,19 @@ Basic installation steps:
   * Label notifications with `Team mention` if a team I am a part of is mentioned in it.
   * Label notifications with `Assigned to me` if the Issue/PR is assigned to me.
 
-3. In Gmail, create the label "GitHub" and then "Unprocessed" nested underneath it (will show up as "GitHub/Processed").
-   In addition, create all of the labels in the preceding step if you don't have them already.
+3. Configure Gmail. In Gmail...
+
+   * Create the label "GitHub" and then "Unprocessed" nested underneath it (will show up as "GitHub/Processed").
+   * Create all of the labels in the preceding step if you don't have them already.
+   * Set up the following filters:
+     ```
+     Matches: from:(notifications@github.com)
+     Do this: Apply label "GitHub/Unprocessed"
+
+     # This filter is optional but highly recommended.
+     Matches: from:(notifications@github.com) -{cc: youremail@example.non}
+     Do this: Skip Inbox
+     ```
 
 4. Create a project in the [Google Developers Console](https://console.developers.google.com) to authenticate to the
    Gmail API via OAuth 2.0. If you need help, detailed instructions are included further in this document.
@@ -96,6 +107,9 @@ Basic installation steps:
 7. Set a cron and forget about it (this is what I do, 60 second polling). Or deploy Dug in a web application. Or even
    just write a loop in your script `loop do; Dug::Runner.run; sleep 60; end`. How you run it is completely up to you,
    and really doesn't matter.
+
+Woo, you're done! Now organizing GitHub notifications, after you subscribe to something on GitHub, is as easy as making
+a label and adding it to your rules YAML.
 
 For more help, see verbose instructions below.
 
