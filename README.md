@@ -23,13 +23,13 @@ whatever).
 
 Basic installation steps:
 
-1. Install Dug
+1. **Install Dug**
 
   ```
   $ gem install dug
   ```
 
-2. Create a YAML Rule file. Example (`dug_rules.yml`):
+2. **Create a YAML Rule file.** Example (`dug_rules.yml`):
 
   ```
   ---
@@ -63,9 +63,9 @@ Basic installation steps:
   * Label notifications with `Team mention` if a team I am a part of is mentioned in it.
   * Label notifications with `Assigned to me` if the Issue/PR is assigned to me.
 
-3. Configure Gmail. In Gmail...
+3. **Configure Gmail.** In Gmail...
 
-   * Create the label "GitHub" and then "Unprocessed" nested underneath it (will show up as "GitHub/Processed").
+   * Create the label "GitHub" and then "Unprocessed" nested underneath it (will show up as "GitHub/Unprocessed").
    * Create all of the labels in the preceding step if you don't have them already.
    * Set up the following filters:
      ```
@@ -77,10 +77,10 @@ Basic installation steps:
      Do this: Skip Inbox
      ```
 
-4. Create a project in the [Google Developers Console](https://console.developers.google.com) to authenticate to the
+4. **Create a project in the [Google Developers Console](https://console.developers.google.com)** to authenticate to the
    Gmail API via OAuth 2.0. If you need help, detailed instructions are included further in this document.
 
-5. Create a script. Example (`script.rb`; fill in your OAuth credentials):
+5. **Create a runner script.** Example (`script.rb`; fill in your OAuth credentials):
 
    ```ruby
    require 'dug'
@@ -97,7 +97,7 @@ Basic installation steps:
    Dug::Runner.run
    ```
 
-6. Run the script and watch your notifications get organized! The first time your run this you will be given a link to
+6. **Run the script** and watch your notifications get organized! The first time your run this you will be given a link to
    visit in your browser to sign in to Gmail verify via a one time token.
 
   ```
@@ -111,7 +111,7 @@ Basic installation steps:
 Woo, you're done! Now organizing GitHub notifications, after you subscribe to something on GitHub, is as easy as making
 a label and adding it to your rules YAML.
 
-For more help, see verbose instructions below.
+**For more help, see verbose instructions below.**
 
 ## Verbose Installation/Usage
 
