@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/chrisarcand/dug/badges/gpa.svg)](https://codeclimate.com/github/chrisarcand/dug)
 [![Test Coverage](https://codeclimate.com/github/chrisarcand/dug/badges/coverage.svg)](https://codeclimate.com/github/chrisarcand/dug/coverage)
 
-Created out of frustration. _"[D]amn yo[u], [G]mail!"_
+Created [out of frustration.](http://chrisarcand.com/introducing-dug/) _"[D]amn yo[u], [G]mail!"_
 
 **Dug is a simple, configurable gem to organize your GitHub notification emails
 in ways Gmail can't and in an easier-to-maintain way than large, slow Google
