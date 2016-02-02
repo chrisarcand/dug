@@ -63,7 +63,8 @@ Basic installation steps:
   * Label notifications with `Team mention` if a team I am a part of is mentioned in it.
   * Label notifications with `Assigned to me` if the Issue/PR is assigned to me.
 
-3. Create all of the labels in the preceding step in Gmail, if you haven't already.
+3. In Gmail, create the label "GitHub" and then "Unprocessed" nested underneath it (will show up as "GitHub/Processed").
+   In addition, create all of the labels in the preceding step if you don't have them already.
 
 4. Create a project in the [Google Developers Console](https://console.developers.google.com) to authenticate to the
    Gmail API via OAuth 2.0. If you need help, detailed instructions are included further in this document.
