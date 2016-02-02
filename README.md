@@ -1,4 +1,8 @@
 # Dug
+[![Gem Version](https://badge.fury.io/rb/dug.svg)](https://badge.fury.io/rb/dug)
+[![Build Status](https://travis-ci.org/chrisarcand/dug.svg?branch=master)](https://travis-ci.org/chrisarcand/dug)
+[![Code Climate](https://codeclimate.com/github/chrisarcand/dug/badges/gpa.svg)](https://codeclimate.com/github/chrisarcand/dug)
+[![Test Coverage](https://codeclimate.com/github/chrisarcand/dug/badges/coverage.svg)](https://codeclimate.com/github/chrisarcand/dug/coverage)
 
 Created out of frustration. _"[D]amn yo[u], [G]mail!"_
 
@@ -12,7 +16,7 @@ repository name) as well as parse GitHub's custom X headers to label your messag
 
 Dug is meant to be stupid simple. It's practically a gemified script with a configurable API. As such, you can
 programmatically configure and execute Dug's runner class in any way you see fit (within a web app hook, a Rake task,
-whatever).
+a script, whatever).
 
 Basic installation steps:
 
@@ -92,6 +96,8 @@ Basic installation steps:
 For more help, see verbose instructions below.
 
 ## Verbose Installation/Usage
+
+Dug requires MRI 2.1+. Tests pass on the latest versions of JRuby and Rubinius as well.
 
 ### Creating OAuth 2.0 credentials to the Gmail API
 

@@ -9,5 +9,8 @@ matrix:
   allow_failures:
     - rvm: jruby-head
     - rvm: rbx
+addons:
+  code_climate:
+    repo_token: 7da851c483298b23777baeb35bc0e33154313620b02d72792a9f49d4d377f44e
 before_install: gem install bundler -v 1.11.2
 script: bundle exec rake test
