@@ -3,7 +3,7 @@ require 'yaml'
 module Dug
   class Configurator
     LABEL_RULE_TYPES = %i(organization repository reason)
-    GITHUB_REASONS = %w(author comment mention team_mention state_change assign)
+    GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed)
 
     attr_accessor :client_id
     attr_accessor :client_secret
