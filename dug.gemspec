@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["chris@chrisarcand.com"]
 
   spec.summary       = %q{[D]amn yo[u], [G]mail. A gem to organize your GitHub notification emails in ways Gmail filters can't.}
-  spec.description   = %q{[D]amn yo[u], [G]mail. A gemified script to organize your GitHub notification emails using a simple configuration file in ways Gmail filters can't, such as X-GitHub-Reason headers.}
+  spec.description   = %q{A simple, configurable gem to organize your GitHub notification emails in ways Gmail can't and in an easier-to-maintain way than large, slow Google Apps Scripts.}
   spec.homepage      = "https://github.com/chrisarcand/dug"
   spec.license       = "MIT"
 
@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "codeclimate-test-reporter", "~> 0"
+  spec.add_development_dependency "simplecov", "~> 0"
 end
