@@ -17,7 +17,7 @@ module Dug
       if unprocessed_notifications?
         log("Processing #{unprocessed_notifications.size} GitHub notifications...")
         unprocessed_notifications.each do |message|
-          process_message(message.id)
+          Dug::MessageProcessor.new(message.id, servicer).execute
         end
         log("Finished processing #{unprocessed_notifications.size} GitHub notifications.")
       else
@@ -26,33 +26,6 @@ module Dug
     end
 
     private
-
-    def process_message(id)
-      message = NotificationDecorator.new(servicer.get_user_message('me', id))
-
-      labels_to_add    = ["GitHub"]
-      labels_to_remove = ["GitHub/Unprocessed"]
-      if message.reason
-        labels_to_add << Dug.configuration.label_for(:reason, message.reason)
-      end
-      labels_to_add << Dug.configuration.label_for(:organization, message.organization)
-      labels_to_add << Dug.configuration.label_for(:repository,
-                                                   message.repository,
-                                                   organization: message.organization)
-      labels_to_add.flatten! and labels_to_remove.flatten!
-      labels_to_add.compact! and labels_to_remove.compact!
-
-      info = "Processing message:"
-      info << "\n    ID: #{message.id}"
-      %w(Date From Subject).each do |header|
-        info << "\n    #{header}: #{message.headers[header]}"
-      end
-      info << "\n    * Applying labels: #{labels_to_add.join(' | ')} *"
-      log(info)
-
-      servicer.add_labels_by_name(message, labels_to_add)
-      servicer.remove_labels_by_name(message, labels_to_remove)
-    end
 
     def unprocessed_notifications(use_cache: true)
       unless use_cache

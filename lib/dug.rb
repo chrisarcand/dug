@@ -2,6 +2,7 @@ require "dug/version"
 require "dug/configurator"
 require "dug/gmail_servicer"
 require "dug/logger"
+require "dug/message_processor"
 require "dug/notification_decorator"
 require "dug/runner"
 
