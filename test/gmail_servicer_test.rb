@@ -57,6 +57,13 @@ class GmailServicerTest < MiniTest::Test
     end
   end
 
+  def test_missing_label_in_gmail
+    error = assert_raises(Dug::MissingLabel) do
+      @subject.add_labels_by_name(mock(), ["Label 1", "ಠ_ಠ"])
+    end
+    assert_equal error.message, "The label 'ಠ_ಠ' does not exist. Please add the label in Gmail first."
+  end
+
   def test_authorize
     skip
   end
