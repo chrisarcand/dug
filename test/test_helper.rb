@@ -1,5 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
+$testing = true
+
 # Because Code Climate stupidly doesn't defer to SimpleCov and
 # run if it's not actually posting to CC (not by design), so you
 # can't just add another formatter to SimpleCov as they claim.
@@ -16,3 +18,5 @@ end
 
 require 'dug'
 require 'minitest/autorun'
+require "minitest/reporters"
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

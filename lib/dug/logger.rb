@@ -1,7 +1,11 @@
 module Dug
   module Logger
+    # TODO This obviously needs a lot of love
+
     def log(message, level: :info)
-      puts "[#{level.to_s.upcase}] #{Time.now} - #{message}"
+      unless $testing
+        puts "[#{level.to_s.upcase}] #{Time.now} - #{message}"
+      end
     end
   end
 end
