@@ -1,8 +1,8 @@
 # Dug
-[![Gem Version](http://img.shields.io/gem/v/dug.svg?style=flat)](https://rubygems.org/gems/dug)
-[![Build Status](http://img.shields.io/travis/chrisarcand/dug.svg?style=flat)](https://travis-ci.org/chrisarcand/dug)
+[![Gem Version](https://badge.fury.io/rb/dug.svg)](https://badge.fury.io/rb/dug)
+[![Build Status](https://travis-ci.org/chrisarcand/dug.svg?branch=master)](https://travis-ci.org/chrisarcand/dug)
 [![Test Coverage](https://codeclimate.com/github/chrisarcand/dug/badges/coverage.svg)](https://codeclimate.com/github/chrisarcand/dug/coverage)
-[![Code Climate](http://img.shields.io/codeclimate/github/chrisarcand/dug.svg?style=flat)](https://codeclimate.com/github/chrisarcand/dug)
+[![Code Climate](https://codeclimate.com/github/chrisarcand/dug/badges/gpa.svg)](https://codeclimate.com/github/chrisarcand/dug)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://chrisarcand.mit-license.org)
 
 Created [out of frustration.](http://chrisarcand.com/introducing-dug/) _"[D]amn yo[u], [G]mail!"_
