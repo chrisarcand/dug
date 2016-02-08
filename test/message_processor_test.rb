@@ -36,7 +36,7 @@ class MessageProcessorTest < MiniTest::Test
 
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
-      @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Mentioned", "Chris Arcand", "dug"]])
+      @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Chris Arcand", "dug", "Mentioned"]])
       @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
