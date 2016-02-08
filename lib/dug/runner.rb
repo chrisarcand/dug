@@ -32,7 +32,7 @@ module Dug
         log("Requesting latest emails from Gmail...")
         @unprocessed_notifications = nil
       end
-      unprocessed_label = servicer.labels(use_cache: use_cache)["GitHub/Unprocessed"]
+      unprocessed_label = servicer.labels(use_cache: use_cache)[Dug.configuration.unprocessed_label_name]
       @unprocessed_notifications ||= servicer
         .list_user_messages('me', label_ids: [unprocessed_label.id])
         .messages

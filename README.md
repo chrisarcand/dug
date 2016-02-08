@@ -160,28 +160,6 @@ Dug.configure do |config|
 end
 ```
 
-### More configuration options
-
-You can use public methods in Dug's configuration class to programmatically
-configure Dug without a Rules YAML file.  As a documenting example, here is the
-same scenario in the YAML file used previously in this README but within a config
-block:
-
-```ruby
-Dug.configure do |config|
-  config.set_organization_rule('rails')
-  config.set_organization_rule('rspec', label: 'RSpec')
-  config.set_organization_rule('ManageIQ')
-
-  config.set_repository_rule('rspec-expectations', label: 'RSpec/rspec-expectations')
-
-  config.set_reason_rule('author',       label: 'Participating')
-  config.set_reason_rule('comment',      label: 'Participating')
-  config.set_reason_rule('mention',      label: 'Mention by name')
-  config.set_reason_rule('team_mention', label: 'Team mention')
-end
-```
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run

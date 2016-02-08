@@ -1,49 +1,20 @@
 require 'yaml'
+require 'active_support/inflector'
 
 module Dug
   class Configurator
-    LABEL_RULE_TYPES = %i(organization repository reason)
-    GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed)
+    include Dug::Validations
 
     attr_accessor :client_id
     attr_accessor :client_secret
     attr_accessor :token_store
     attr_accessor :application_credentials_file
+    attr_accessor :unprocessed_label_name
 
     def initialize
-      self.label_rules = { "organizations" => {}, "reasons" => {} }
-    end
-
-    def set_organization_rule(name, label: nil)
-      organizations[name] ||= { "repositories" => {} }
-      organizations[name]["label"] = label || name
-    end
-
-    def set_repository_rule(name, organization:, label: nil)
-      organizations[organization] ||= { "repositories" => {} }
-      organizations[organization]["repositories"][name] ||= {}
-      organizations[organization]["repositories"][name]["label"] = label || name
-    end
-
-    def set_reason_rule(name, label: nil)
-      validate_reason(name)
-      reasons[name] ||= {}
-      reasons[name]["label"] = label || name
-    end
-
-    def label_for(type, name, organization: nil)
-      validate_label_type(type)
-      case type
-      when :organization
-        organizations.fetch(name, {})["label"]
-      when :repository
-        raise ArgumentError, "Repository label rules require an organization to be specified" unless organization
-        organizations.fetch(organization, {})
-                     .fetch("repositories", {})
-                     .fetch(name, {})["label"]
-      when :reason
-        validate_reason(name)
-        reasons.fetch(name, {})["label"]
+      self.label_rules = {}
+      LABEL_RULE_TYPES.each do |type|
+        label_rules[type] = {}
       end
     end
 
@@ -63,6 +34,10 @@ module Dug
       ENV['TOKEN_STORE_PATH'] || @token_store || File.join(Dir.home, ".dug", "authorization.yaml")
     end
 
+    def unprocessed_label_name
+      @unprocessed_label_name || "GitHub/Unprocessed"
+    end
+
     def rule_file
       @rule_file
     end
@@ -73,53 +48,27 @@ module Dug
       @rule_file
     end
 
+    def label_for(type, name)
+      type = type.to_s
+      validate_label_type!(type)
+      validate_reason!(name) if type == 'reason'
+
+      rule = label_rules[type.pluralize][name]
+      case rule
+      when String, nil
+        rule
+      when Hash
+        rule['label']
+      end
+    end
+
     private
 
     attr_accessor :label_rules
 
     def load_rules
-      file = YAML.load_file(rule_file)
-
-      file["organizations"].each do |org|
-        case org
-        when String
-          set_organization_rule(org)
-        when Hash
-          set_organization_rule(org["name"], label: org["label"])
-          if repos = org["repositories"]
-            repos.each do |repo|
-              set_repository_rule(repo["name"], organization: org["name"], label: repo["label"])
-            end
-          end
-        end
-      end
-
-      file["reasons"].keys.each do |reason|
-        validate_reason(reason)
-        set_reason_rule(reason, label: file["reasons"][reason]["label"])
-      end
-    end
-
-    def validate_label_type(type)
-      unless LABEL_RULE_TYPES.include?(type)
-        raise ConfigurationError, "'#{type}' is not a valid label rule type. Valid types: #{}"
-      end
-    end
-
-    def validate_reason(reason)
-      unless GITHUB_REASONS.include?(reason)
-        raise ConfigurationError, "'#{reason}' is not a valid GitHub notification reason. Valid reasons include: #{GITHUB_REASONS.map { |x| "'#{x}'" }.join(', ')}"
-      end
-    end
-
-    def organizations
-      label_rules["organizations"]
-    end
-
-    def reasons
-      label_rules["reasons"]
+      # TODO should validate incoming YAML
+      self.label_rules = YAML.load_file(rule_file)
     end
   end
-
-  ConfigurationError = Class.new(StandardError)
 end
