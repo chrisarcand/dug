@@ -18,7 +18,7 @@ module Dug
         labels_to_add << label
       end
 
-      if label = Dug.configuration.label_for(:repository, message.repository, organization: message.organization)
+      if label = Dug.configuration.label_for(:repository, message.repository)
         labels_to_add << label
       end
 
@@ -39,7 +39,7 @@ module Dug
     end
 
     def labels_to_remove
-      @labels_to_remove ||= ["GitHub/Unprocessed"]
+      @labels_to_remove ||= [Dug.configuration.unprocessed_label_name]
     end
 
     private

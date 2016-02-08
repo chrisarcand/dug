@@ -1,24 +1,17 @@
 ---
 organizations:
-  - rails
-  - name: rspec
-    label: RSpec
-    repositories:
-      - name: rspec-expectations
-        label: RSpec/rspec-expectations
-  - name: ManageIQ
-    repositories:
-      - name: more_core_extensions
-        label: MoreCoreExtensions
+  chrisarcand: Chris Arcand
+  rails: Rails
+  rspec: RSpec
+  ManageIQ: ManageIQ
+
+repositories:
+  rspec-expectations: RSpec/rspec-expectations
+  dug: dug
 
 reasons:
-  author:
-    label: Participating
-  comment:
-    label: Participating
-  mention:
-    label: Mentioned by name
-  team_mention:
-    label: Team mention
-  assign:
-    label: Assigned to me
+  author: Participating
+  comment: Participating
+  mention: Mentioned
+  team_mention: Team mention
+  assign: Assigned to me

@@ -1,4 +1,5 @@
 require "dug/version"
+require "dug/validations"
 require "dug/configurator"
 require "dug/gmail_servicer"
 require "dug/logger"
