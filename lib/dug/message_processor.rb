@@ -10,16 +10,10 @@ module Dug
     end
 
     def execute
-      if message.reason && label = Dug.configuration.label_for(:reason, message.reason)
-        labels_to_add << label
-      end
-
-      if label = Dug.configuration.label_for(:organization, message.organization)
-        labels_to_add << label
-      end
-
-      if label = Dug.configuration.label_for(:repository, message.repository)
-        labels_to_add << label
+      LABEL_RULE_TYPES.each do |type|
+        if message.public_send(type) && label = Dug.configuration.label_for(type, message.public_send(type))
+          labels_to_add << label
+        end
       end
 
       info = "Processing message:"

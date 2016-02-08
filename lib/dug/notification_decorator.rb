@@ -7,11 +7,11 @@ module Dug
     end
 
     def organization
-      list_match[1]
+      list_match(1)
     end
 
     def repository
-      list_match[2]
+      list_match(2)
     end
 
     def reason
@@ -26,8 +26,8 @@ module Dug
 
     private
 
-    def list_match
-      headers["List-ID"].match(/^([\w\-_]+)\/([\w\-_]+)/)
+    def list_match(index)
+      headers["List-ID"] && headers["List-ID"].match(/^([\w\-_]+)\/([\w\-_]+)/)[index]
     end
   end
 end

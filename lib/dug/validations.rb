@@ -1,10 +1,4 @@
 module Dug
-  LABEL_RULE_TYPES = %w(organization repository reason states)
-  GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed)
-
-  InvalidRuleType = Class.new(StandardError)
-  InvalidGitHubReason = Class.new(StandardError)
-
   module Validations
     def valid_label_type?(type)
       LABEL_RULE_TYPES.include?(type)
@@ -26,5 +20,8 @@ module Dug
       end
     end
   end
+
+  InvalidRuleType = Class.new(StandardError)
+  InvalidGitHubReason = Class.new(StandardError)
 end
 
