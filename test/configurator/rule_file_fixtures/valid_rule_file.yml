@@ -8,6 +8,11 @@ organizations:
 repositories:
   rspec-expectations: RSpec/rspec-expectations
   dug: dug
+  dotfiles:
+    - remote: chrisarcand
+      label: My dotfiles
+    - remote: juliancheal
+      label: Julian's dotfiles
 
 reasons:
   author: Participating

@@ -48,7 +48,7 @@ module Dug
       @rule_file
     end
 
-    def label_for(type, name)
+    def label_for(type, name, opts={})
       type = type.to_s
       validate_label_type!(type)
       validate_reason!(name) if type == 'reason'
@@ -57,8 +57,14 @@ module Dug
       case rule
       when String, nil
         rule
-      when Hash
-        rule['label']
+      when Array
+        if type == 'repository'
+          raise ArgumentError, "Multiple remotes possible and no remote specified" unless opts.keys.include?(:remote)
+          rule = rule.detect do |r|
+            r['remote'] == opts[:remote]
+          end
+          rule['label'] if rule
+        end
       end
     end
 

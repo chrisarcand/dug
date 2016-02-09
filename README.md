@@ -36,30 +36,31 @@ Basic installation steps:
   ```
   ---
   organizations:
-    - rails
-    - name: rspec
-      label: RSpec
-      repositories:
-        - name: rspec-expectations
-          label: RSpec/rspec-expectations
-    - ManageIQ
+    rails: Rails
+    rspec: RSpec
+    ManageIQ: ManageIQ
+
+  repositories:
+    rspec-expectations: RSpec/rspec-expectations
+    dug: dug
+    dotfiles:
+      - remote: chrisarcand
+        label: My dotfiles
+      - remote: juliancheal
+        label: Julian's dotfiles
 
   reasons:
-    author:
-      label: Participating
-    comment:
-      label: Participating
-    mention:
-      label: Mentioned by name
-    team_mention:
-      label: Team mention
-    assign:
-      label: Assigned to me
+    author: Participating
+    comment: Participating
+    mention: Mentioned
+    team_mention: Team mention
+    assign: Assigned to me
   ```
 
   The above rule file will:
   * Label all notifications from the organization `rails` with the label `rails`, `rspec` with `RSpec`, `ManageIQ` with `ManageIQ`.
-  * Label all notifications from the repository `rspec-expectations` with the label `RSpec/rspec-expectations`
+  * Label all notifications from the repository `rspec-expectations` with the label `RSpec/rspec-expectations`, `dug` with `dug`.
+  * Label all notifications from chrisarcand's `dotfiles` repository with the label `My dotfiles`, juliancheal's with `Julian's dotfiles`.
   * Label notifications with `Participating` if I am the author of the Issue/PR or if I commented on it.
   * Label notifications with `Mentioned by name` if I'm directly mentioned in it.
   * Label notifications with `Team mention` if a team I am a part of is mentioned in it.
