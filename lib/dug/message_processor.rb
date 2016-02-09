@@ -25,6 +25,13 @@ module Dug
         end
       end
 
+      if message.indicates_reopened?
+        label = Dug.configuration.label_for(:state, 'closed')
+        reopened_label = Dug.configuration.label_for(:state, 'reopened')
+        labels_to_remove << label if label
+        labels_to_add << reopened_label if reopened_label
+      end
+
       info = "Processing message:"
       info << "\n    ID: #{message.id}"
       %w(Date From Subject).each do |header|

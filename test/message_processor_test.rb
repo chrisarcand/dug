@@ -30,6 +30,10 @@ class MessageProcessorTest < MiniTest::Test
     def indicates_closed?
       false
     end
+
+    def indicates_reopened?
+      false
+    end
   end
 
   class MentionedMessage < BaseMessage

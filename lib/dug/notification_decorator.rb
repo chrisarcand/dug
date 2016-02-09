@@ -34,6 +34,10 @@ module Dug
       !!(plaintext_body =~ /^Closed #(?:\d+)/)
     end
 
+    def indicates_reopened?
+      !!(plaintext_body =~ /^Reopened #(?:\d+)\./)
+    end
+
     private
 
     def list_match(index)
