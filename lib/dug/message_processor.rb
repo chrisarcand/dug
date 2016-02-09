@@ -11,8 +11,10 @@ module Dug
 
     def execute
       LABEL_RULE_TYPES.each do |type|
-        if message.public_send(type) && label = Dug.configuration.label_for(type, message.public_send(type))
-          labels_to_add << label
+        if message_data = message.public_send(type)
+          opts = type == 'repository' ? { remote: message.public_send(:organization) } : {}
+          label = Dug.configuration.label_for(type, message_data, opts)
+          labels_to_add << label if label
         end
       end
 
