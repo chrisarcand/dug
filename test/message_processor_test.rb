@@ -22,6 +22,14 @@ class MessageProcessorTest < MiniTest::Test
     def reason
       nil
     end
+
+    def indicates_merged?
+      false
+    end
+
+    def indicates_closed?
+      false
+    end
   end
 
   class MentionedMessage < BaseMessage

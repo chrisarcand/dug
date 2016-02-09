@@ -8,7 +8,7 @@ require "dug/notification_decorator"
 require "dug/runner"
 
 module Dug
-  LABEL_RULE_TYPES = %w(organization repository reason)
+  LABEL_RULE_TYPES = %w(organization repository reason state)
   GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed)
 
   def self.authorize!

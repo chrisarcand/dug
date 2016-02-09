@@ -10,10 +10,17 @@ module Dug
     end
 
     def execute
-      LABEL_RULE_TYPES.each do |type|
+      %w(organization repository reason).each do |type|
         if message_data = message.public_send(type)
           opts = type == 'repository' ? { remote: message.public_send(:organization) } : {}
           label = Dug.configuration.label_for(type, message_data, opts)
+          labels_to_add << label if label
+        end
+      end
+
+      %w(merged closed).each do |state|
+        if message.public_send("indicates_#{state}?")
+          label = Dug.configuration.label_for(:state, state)
           labels_to_add << label if label
         end
       end

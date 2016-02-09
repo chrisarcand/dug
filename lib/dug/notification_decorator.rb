@@ -24,10 +24,26 @@ module Dug
       end
     end
 
+    def indicates_merged?
+      !!(plaintext_body =~ /^Merged #(?:\d+)\./)
+    end
+
+    def indicates_closed?
+      # Note: Purposely more lax than Merged
+      # Issues can be closed via PR/commit ie "Closed #123 via #456."
+      !!(plaintext_body =~ /^Closed #(?:\d+)/)
+    end
+
     private
 
     def list_match(index)
       headers["List-ID"] && headers["List-ID"].match(/^([\w\-_]+)\/([\w\-_]+)/)[index]
+    end
+
+    def plaintext_body
+      payload.parts.detect { |part|
+        part.mime_type == 'text/plain'
+      }.body.data
     end
   end
 end
