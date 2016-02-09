@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class RuleFileTest < Minitest::Test
+class RulesTest < Minitest::Test
   def setup
-    @valid_config = Dug.configure do |config|
+    Dug.configure do |config|
       config.rule_file = File.expand_path("../rule_file_fixtures/valid_rule_file.yml", __FILE__)
     end
   end

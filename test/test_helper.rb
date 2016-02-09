@@ -22,3 +22,5 @@ require "minitest/reporters"
 require 'mocha/mini_test'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
+Minitest::Unit.after_tests { Dug.configuration._clear! }

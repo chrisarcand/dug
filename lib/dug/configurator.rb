@@ -68,6 +68,21 @@ module Dug
       end
     end
 
+    def _clear!
+      %w(
+        application_credentials_file
+        client_id
+        client_secret
+        token_store
+        unprocessed_label_name
+        rule_file
+        label_rules
+      ).each do |var|
+        instance_variable_set("@#{var}", nil)
+      end
+
+    end
+
     private
 
     attr_accessor :label_rules
