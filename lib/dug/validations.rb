@@ -1,17 +1,17 @@
 module Dug
   module Validations
-    def valid_label_type?(type)
-      LABEL_RULE_TYPES.include?(type)
+    def valid_rule_type?(type)
+      LABEL_RULE_TYPES.include?(type.to_s)
     end
 
-    def validate_label_type!(type)
-      unless valid_label_type?(type)
+    def validate_rule_type!(type)
+      unless valid_rule_type?(type)
         raise InvalidRuleType, "'#{type}' is not a valid label rule type. Valid types: #{LABEL_RULE_TYPES}"
       end
     end
 
     def valid_reason?(reason)
-      GITHUB_REASONS.include?(reason)
+      GITHUB_REASONS.include?(reason.to_s)
     end
 
     def validate_reason!(reason)

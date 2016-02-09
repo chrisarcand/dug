@@ -50,7 +50,7 @@ module Dug
 
     def label_for(type, name, opts={})
       type = type.to_s
-      validate_label_type!(type)
+      validate_rule_type!(type)
       validate_reason!(name) if type == 'reason'
 
       rule = label_rules[type.pluralize][name]
