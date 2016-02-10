@@ -37,10 +37,13 @@ module Dug
       # The reverse! is required because we want to process messages in order
       # and Google doesn't allow you to sort by anything because labels. Order
       # is required here to account for state changes like reopened issues
-      @unprocessed_notifications ||= servicer
-        .list_user_messages('me', label_ids: [unprocessed_label.id])
-        .messages
-        .reverse!
+      @unprocessed_notifications ||=
+        begin
+          messages = servicer
+            .list_user_messages('me', label_ids: [unprocessed_label.id])
+            .messages
+          messages.reverse! if messages
+        end
     end
 
     def unprocessed_notifications?
