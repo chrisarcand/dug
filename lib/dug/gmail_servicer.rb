@@ -14,7 +14,8 @@ module Dug
 
     def_delegators :@gmail, :get_user_message,
                             :list_user_messages,
-                            :modify_message
+                            :modify_message,
+                            :modify_thread
 
     def initialize
       @gmail = Google::Apis::GmailV1::GmailService.new
@@ -29,13 +30,13 @@ module Dug
     end
 
     def add_labels_by_name(*args)
-      modify_message_request(*args) do |request, ids|
+      modification_request(*args) do |request, ids|
         request.add_label_ids = ids
       end
     end
 
     def remove_labels_by_name(*args)
-      modify_message_request(*args) do |request, ids|
+      modification_request(*args) do |request, ids|
         request.remove_label_ids = ids
       end
     end
@@ -73,7 +74,7 @@ module Dug
 
     private
 
-    def modify_message_request(message, label_names)
+    def modification_request(message, label_names, entire_thread: false)
       ids = []
       label_names.each do |name|
         unless labels[name] && id = labels[name].id
@@ -81,9 +82,20 @@ module Dug
         end
         ids << id
       end
-      request = Google::Apis::GmailV1::ModifyMessageRequest.new
+      request =
+        if entire_thread
+          Google::Apis::GmailV1::ModifyThreadRequest.new
+        else
+          Google::Apis::GmailV1::ModifyMessageRequest.new
+        end
+
       yield request, ids
-      modify_message('me', message.id, request)
+
+      if entire_thread
+        modify_thread('me', message.thread_id, request)
+      else
+        modify_message('me', message.id, request)
+      end
     end
   end
 

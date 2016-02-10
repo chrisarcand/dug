@@ -33,9 +33,14 @@ module Dug
         @unprocessed_notifications = nil
       end
       unprocessed_label = servicer.labels(use_cache: use_cache)[Dug.configuration.unprocessed_label_name]
+
+      # The reverse! is required because we want to process messages in order
+      # and Google doesn't allow you to sort by anything because labels. Order
+      # is required here to account for state changes like reopened issues
       @unprocessed_notifications ||= servicer
         .list_user_messages('me', label_ids: [unprocessed_label.id])
         .messages
+        .reverse!
     end
 
     def unprocessed_notifications?
