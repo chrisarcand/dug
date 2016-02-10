@@ -12,9 +12,9 @@ module Dug
     attr_accessor :unprocessed_label_name
 
     def initialize
-      self.label_rules = {}
+      @label_rules = {}
       LABEL_RULE_TYPES.each do |type|
-        label_rules[type] = {}
+        label_rules[type.pluralize] = {}
       end
     end
 
@@ -50,8 +50,7 @@ module Dug
 
     def label_for(type, name, opts={})
       type = type.to_s
-      validate_rule_type!(type)
-      validate_reason!(name) if type == 'reason'
+      run_validations(type, name)
 
       rule = label_rules[type.pluralize][name]
       case rule
@@ -76,11 +75,11 @@ module Dug
         token_store
         unprocessed_label_name
         rule_file
-        label_rules
       ).each do |var|
         instance_variable_set("@#{var}", nil)
       end
 
+      initialize
     end
 
     private
@@ -89,7 +88,20 @@ module Dug
 
     def load_rules
       # TODO should validate incoming YAML
-      self.label_rules = YAML.load_file(rule_file)
+      loaded_rules = YAML.load_file(rule_file)
+
+      LABEL_RULE_TYPES.each do |type|
+        type = type.pluralize
+        @label_rules[type] = loaded_rules[type] if loaded_rules[type]
+      end
+
+      @label_rules
+    end
+
+    def run_validations(type, name)
+      validate_rule_type!(type)
+      validate_reason!(name) if type == 'reason'
+      validate_state!(name) if type == 'state'
     end
   end
 end

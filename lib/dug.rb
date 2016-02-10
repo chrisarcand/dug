@@ -10,6 +10,7 @@ require "dug/runner"
 module Dug
   LABEL_RULE_TYPES = %w(organization repository reason state)
   GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed)
+  ISSUE_STATES = %(merged closed reopened)
 
   def self.authorize!
     Dug::GmailServicer.new.authorize!

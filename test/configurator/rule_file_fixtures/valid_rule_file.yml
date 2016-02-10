@@ -20,3 +20,8 @@ reasons:
   mention: Mentioned
   team_mention: Team mention
   assign: Assigned to me
+
+states:
+  merged: Merged
+  closed: Closed
+  reopened: Reopened
