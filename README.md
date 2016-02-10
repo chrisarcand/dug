@@ -167,12 +167,6 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run
 `rake test` to run the tests. You can also run `bin/console` for an interactive
 prompt that will allow you to experiment.
 
-## TODO
-* Add option to parse message body for labelling
-* Add more built-in reasons such as "Closed" statuses
-* The Google Auth Library has an API for Redis that could be supported easily.
-* Moar tests, plz
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/chrisarcand/dug.
