@@ -92,7 +92,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Chris Arcand", "dug", "Mentioned"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"], entire_thread: false])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
@@ -105,7 +105,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Chris Arcand", "My dotfiles"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"], entire_thread: false])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
@@ -118,7 +118,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Julian's dotfiles"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"], entire_thread: false])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
@@ -131,7 +131,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"], entire_thread: false])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
@@ -145,7 +145,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Chris Arcand", "dug", "Merged"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"], entire_thread: false])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
@@ -159,7 +159,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Chris Arcand", "dug", "Closed"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed"], entire_thread: false])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
@@ -173,7 +173,7 @@ class MessageProcessorTest < MiniTest::Test
     Dug::NotificationDecorator.stub :new, @mock_message do
       @mock_servicer.expect(:get_user_message, nil, [String, String])
       @mock_servicer.expect(:add_labels_by_name, nil, [@mock_message, ["GitHub", "Chris Arcand", "dug", "Reopened"]])
-      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed", "Closed"]])
+      @mock_servicer.expect(:remove_labels_by_name, nil, [@mock_message, ["GitHub/Unprocessed", "Closed"], entire_thread: true])
 
       Dug::MessageProcessor.new("dummy_id", @mock_servicer).execute
       @mock_servicer.verify
