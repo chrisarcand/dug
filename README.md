@@ -88,12 +88,15 @@ Basic installation steps:
 
    * Create the label "GitHub" and then "Unprocessed" nested underneath it (will show up as "GitHub/Unprocessed").
    * Create all of the labels in the preceding step if you don't have them already.
-   * Set up the following filters:
+   * Set up the following filters. The 'GitHub/Unprocessed' label is the only required part, but I recommend you
+     skip your inbox or you will be pinged with GitHub notifications _a lot_.
      ```
      Matches: from:(notifications@github.com)
-     Do this: Apply label "GitHub/Unprocessed"
+     Do this: Apply label "GitHub/Unprocessed", Skip Inbox
 
-     # This filter is optional but highly recommended.
+     # Optionally, you may want to *remove the Skip Inbox from the previous filter* and
+     # add this one. This means messages directed at you go to your Inbox (setting
+     # off a notification) and the rest going straight to your archive (no notification).
      Matches: from:(notifications@github.com) -{cc: youremail@example.non}
      Do this: Skip Inbox
      ```
