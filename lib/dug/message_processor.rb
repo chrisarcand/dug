@@ -38,10 +38,13 @@ module Dug
         info << "\n    #{header}: #{message.headers[header]}"
       end
       info << "\n    * Applying labels: #{labels_to_add.join(' | ')} *"
+      info << "\n    * Removing labels: #{labels_to_remove.join(' | ')} *"
       log(info)
 
       servicer.add_labels_by_name(message, labels_to_add)
-      servicer.remove_labels_by_name(message, labels_to_remove)
+      servicer.remove_labels_by_name(message,
+                                     labels_to_remove,
+                                     entire_thread: modify_entire_thread?)
     end
 
     def labels_to_add
@@ -50,6 +53,10 @@ module Dug
 
     def labels_to_remove
       @labels_to_remove ||= [Dug.configuration.unprocessed_label_name]
+      if @labels_to_remove.size > 1
+        @modify_entire_thread = true
+      end
+      @labels_to_remove
     end
 
     private
@@ -57,5 +64,8 @@ module Dug
     attr_reader :message
     attr_reader :servicer
 
+    def modify_entire_thread?
+      !!@modify_entire_thread
+    end
   end
 end
