@@ -14,7 +14,7 @@ people usually do with Gmail filters (label by organization name, repository
 name) as well as parse GitHub's custom X headers to label your messages with
 things like "Mentioned by name", "Assigned to me", "Commented", etc.
 
-![](http://screenshots.chrisarcand.com/permxqkc5.jpg)
+![](http://screenshots.chrisarcand.com/permd0u3k.jpg)
 
 ## Quick Installation
 
