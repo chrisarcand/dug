@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/chrisarcand/dug/badges/gpa.svg)](https://codeclimate.com/github/chrisarcand/dug)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://chrisarcand.mit-license.org)
 
-Created [out of frustration.](http://chrisarcand.com/introducing-dug/) _"[D]amn yo[u], [G]mail!"_
+Created out of frustration. _"[D]amn yo[u], [G]mail!"_
 
 **Dug is a simple, configurable gem to organize your GitHub notification emails
 in ways Gmail can't and in an easier-to-maintain way than large, slow Google
@@ -16,14 +16,10 @@ things like "Mentioned by name", "Assigned to me", "Commented", etc.
 
 ![](http://screenshots.chrisarcand.com/permd0u3k.jpg)
 
+You can read more about the reasoning behind dug and why it's superior compared to other labeling methods in [my post
+introducing this project.](http://chrisarcand.com/introducing-dug/)
+
 ## Quick Installation
-
-Dug is meant to be stupid simple. It's practically a gemified script with a
-configurable API. As such, you can programmatically configure and execute Dug's
-runner class in any way you see fit (within a web app hook, a Rake task, a script,
-whatever).
-
-Basic installation steps:
 
 1. **Install Dug**
 
@@ -121,14 +117,16 @@ Basic installation steps:
    Dug::Runner.run
    ```
 
-6. **Run the script** and watch your notifications get organized! The first time your run this you will be given a link to
-   visit in your browser to sign in to Gmail verify via a one time token.
+6. **Run the script** and watch your notifications get organized! The first
+   time you run this you will be given a link to visit in your browser to sign
+   in to Gmail verify via a one time token. Also note each call to `#run`
+   processes 100 unprocessed notifications at a time.
 
   ```
   $ ruby script.rb
   ```
 
-7. Set a cron and forget about it (this is what I do, 60 second polling). Or deploy Dug in a web application. Or even
+7. Set a cron and forget about it. I do, on a private VPS, with 60 second polling. Or deploy Dug in a web application. Or even
    just write a loop in your script `loop do; Dug::Runner.run; sleep 60; end`. How you run it is completely up to you,
    and really doesn't matter.
 
