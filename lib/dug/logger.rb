@@ -1,4 +1,5 @@
 module Dug
+  # @private
   module Logger
     # TODO This obviously needs a lot of love
 

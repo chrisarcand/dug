@@ -1,7 +1,6 @@
 module Dug
+  # @private
   class MessageProcessor
-    # Private API for processing individual Gmail messages
-
     include Dug::Logger
 
     def initialize(message_id, servicer)
@@ -47,6 +46,11 @@ module Dug
                                      entire_thread: modify_entire_thread?)
     end
 
+    private
+
+    attr_reader :message
+    attr_reader :servicer
+
     def labels_to_add
       @labels_to_add ||= ["GitHub"]
     end
@@ -58,11 +62,6 @@ module Dug
       end
       @labels_to_remove
     end
-
-    private
-
-    attr_reader :message
-    attr_reader :servicer
 
     def modify_entire_thread?
       !!@modify_entire_thread

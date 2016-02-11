@@ -5,6 +5,7 @@ require 'fileutils'
 require 'forwardable'
 
 module Dug
+  # @private
   class GmailServicer
     extend Forwardable
 
