@@ -45,9 +45,11 @@ module Dug
     end
 
     def plaintext_body
-      payload.parts.detect { |part|
-        part.mime_type == 'text/plain'
-      }.body.data
+      @plaintext_body ||= \
+        begin
+          parts = payload.parts || Array(payload)
+          parts.detect { |part| part.mime_type == 'text/plain' }.body.data
+        end
     end
   end
 end
