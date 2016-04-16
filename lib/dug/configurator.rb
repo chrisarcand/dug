@@ -1,5 +1,4 @@
 require 'yaml'
-require 'active_support/inflector'
 
 module Dug
   class Configurator
@@ -14,7 +13,7 @@ module Dug
     def initialize
       @label_rules = {}
       LABEL_RULE_TYPES.each do |type|
-        label_rules[type.pluralize] = {}
+        label_rules[Util.pluralize(type)] = {}
       end
     end
 
@@ -52,7 +51,7 @@ module Dug
       type = type.to_s
       run_validations(type, name)
 
-      rule = label_rules[type.pluralize][name]
+      rule = label_rules[Util.pluralize(type)][name]
       case rule
       when String, nil
         rule
@@ -91,7 +90,7 @@ module Dug
       loaded_rules = YAML.load_file(rule_file)
 
       LABEL_RULE_TYPES.each do |type|
-        type = type.pluralize
+        type = Util.pluralize(type)
         @label_rules[type] = loaded_rules[type] if loaded_rules[type]
       end
 
