@@ -1,7 +1,10 @@
 ### Unreleased
 [Full Changelog](http://github.com/chrisarcand/dug/compare/v1.0.1...master)
 
-Nothing yet!
+* Removed ActiveSupport dependency with an in-house pluralization implementation in a new
+  Util module.
+  Issue: https://github.com/chrisarcand/dug/issues/14
+  PR: https://github.com/chrisarcand/dug/pull/18
 
 ### 1.0.0 / 2016-03-11
 [Full Changelog](http://github.com/chrisarcand/dug/compare/v1.0.0...v1.0.1)
