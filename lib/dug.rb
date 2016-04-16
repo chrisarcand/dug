@@ -6,6 +6,7 @@ require "dug/logger"
 require "dug/message_processor"
 require "dug/notification_decorator"
 require "dug/runner"
+require "dug/util"
 
 module Dug
   LABEL_RULE_TYPES = %w(organization repository reason state)
