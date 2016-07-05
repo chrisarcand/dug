@@ -10,7 +10,7 @@ require "dug/util"
 
 module Dug
   LABEL_RULE_TYPES = %w(organization repository reason state)
-  GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed)
+  GITHUB_REASONS = %w(author comment mention team_mention state_change assign manual subscribed push)
   ISSUE_STATES = %(merged closed reopened)
 
   def self.authorize!
