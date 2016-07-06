@@ -33,6 +33,7 @@ module Dug
         @unprocessed_notifications = nil
       end
       unprocessed_label = servicer.labels(use_cache: use_cache)[Dug.configuration.unprocessed_label_name]
+      raise "Create the label '#{Dug.configuration.unprocessed_label_name}' on gmail" unless unprocessed_label
 
       # The reverse! is required because we want to process messages in order
       # and Google doesn't allow you to sort by anything because labels. Order
