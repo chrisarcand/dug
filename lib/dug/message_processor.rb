@@ -52,7 +52,7 @@ module Dug
     attr_reader :servicer
 
     def labels_to_add
-      @labels_to_add ||= ["GitHub"]
+      @labels_to_add ||= [Dug.configuration.processed_label_name]
     end
 
     def labels_to_remove
