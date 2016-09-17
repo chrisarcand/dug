@@ -9,6 +9,7 @@ module Dug
     attr_accessor :token_store
     attr_accessor :application_credentials_file
     attr_accessor :unprocessed_label_name
+    attr_accessor :processed_label_name
 
     def initialize
       @label_rules = {}
@@ -35,6 +36,10 @@ module Dug
 
     def unprocessed_label_name
       @unprocessed_label_name || "GitHub/Unprocessed"
+    end
+
+    def processed_label_name
+      @processed_label_name ||= "GitHub"
     end
 
     def rule_file
