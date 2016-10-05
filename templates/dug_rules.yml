@@ -1,0 +1,22 @@
+---
+organizations:
+  ManageIQ: ManageIQ
+
+repositories:
+  dug: dug
+  dotfiles:
+    - remote: chrisarcand
+      label: My dotfiles
+    - remote: juliancheal
+      label: Julian's dotfiles
+
+reasons:
+  author: Participating
+  comment: Participating
+  mention: Mentioned
+  team_mention: Team mention
+  assign: Assigned to me
+
+states:
+  merged: Merged
+  closed: Closed
