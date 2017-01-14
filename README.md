@@ -187,6 +187,36 @@ Dug.configure do |config|
 end
 ```
 
+## Dockerfile
+
+The included Docker file will build a ruby 2.3.1 image
+and run the script `templates/script.rb` every 180 seconds
+using the rules in `templates/dug_rules.yml`.
+
+The steps below explain how to build the container and 
+run timely updates on your gmail account labels.
+
+1. Edit both `templates/dug_rules.yml` and `templates/script.rb` to
+your liking.
+
+2. Build the image - `docker build -t dug_tagger .`
+
+3. Build and run the container - `docker run -idt dug_tagger`
+
+4. Copy the resulting Container id SHA (or tag) from step 3.
+
+5. Access the container to verify the Gmail one time token - `docker exec -it <container id sha> /bin/bash`
+
+6. From the the `/root` folder run `ruby /dug/script.rb`
+You should see a request for the Gmail one time token.
+
+6. Copy the token and then exit out of the interactive session - `exit`
+
+7. Restart the container to pick up the Gmail token - `docker restart <container id sha>`
+
+8. You should start to see email in your `UnProcessed` folder decrease after the time
+interval has passed in your `templates/script.rb` file.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
