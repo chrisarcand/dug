@@ -5,6 +5,13 @@
 [![Code Climate](https://codeclimate.com/github/chrisarcand/dug/badges/gpa.svg)](https://codeclimate.com/github/chrisarcand/dug)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://chrisarcand.mit-license.org)
 
+**Note: Dug is not currently under active development**  
+In January 2017 I stopped maintaining Dug and decided to use and contribute to [Octobox](https://github.com/octobox/octobox), an open source
+web application that organizes your notifications using the Github Notifications API directly. You
+can give it a try for yourself at [octobox.io](https://octobox.io/)
+
+---
+
 Created out of frustration. _"[D]amn yo[u], [G]mail!"_
 
 **Dug is a simple, configurable gem to organize your GitHub notification emails
